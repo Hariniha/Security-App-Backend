@@ -4,6 +4,7 @@ const settingsRoutes = require('./routes/settingsRoutes');
 const logRoutes = require('./routes/logRoutes');
 const passwordRoutes = require('./routes/passwords');
 const authRoutes = require('./routes/auth');
+const chatRoutes = require('./routes/chat');
 
 const app = express();
 
@@ -14,5 +15,7 @@ app.use('/api/settings', settingsRoutes);
 app.use('/api/logs', logRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/passwords', passwordRoutes);
+app.use('/api/chat', chatRoutes);
+
 
 module.exports = app;
