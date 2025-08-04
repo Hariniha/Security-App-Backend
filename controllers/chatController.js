@@ -1,14 +1,26 @@
 const ChatMessage = require('../models/ChatMessage');
 
-// Send a message (encrypted)
-exports.sendMessage = async (req, res) => {
-  const { sender, recipient, encryptedText, selfDestructSeconds } = req.body;
+// Reusable function to save a message (encrypted)
+exports.saveMessage = async ({ sender, recipient, encryptedText, selfDestructSeconds }) => {
+  console.log('saveMessage called with:', { sender, recipient, encryptedText, selfDestructSeconds });
+  
   const selfDestructAt = selfDestructSeconds
     ? new Date(Date.now() + selfDestructSeconds * 1000)
     : undefined;
-
+  
   const message = new ChatMessage({ sender, recipient, encryptedText, selfDestructAt });
-  await message.save();
+  console.log('Creating message object:', message);
+  
+  const savedMessage = await message.save();
+  console.log('Message saved to database:', savedMessage);
+  
+  return savedMessage;
+};
+
+// Send a message (encrypted) via REST
+exports.sendMessage = async (req, res) => {
+  const { sender, recipient, encryptedText, selfDestructSeconds } = req.body;
+  await exports.saveMessage({ sender, recipient, encryptedText, selfDestructSeconds });
   res.status(201).json({ success: true, message: 'Message sent.' });
 };
 
