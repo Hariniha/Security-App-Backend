@@ -9,3 +9,5 @@ const ChatMessageSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('ChatMessage', ChatMessageSchema);
+
+
