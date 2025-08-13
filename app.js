@@ -8,6 +8,8 @@ const passwordRoutes = require('./routes/passwords');
 const authRoutes = require('./routes/auth');
 const chatRoutes = require('./routes/chat');
 const fileRoutes = require('./routes/files');
+const usersRoutes = require('./routes/users');
+const dashboardRoutes = require('./routes/dashboard');
 
 const app = express();
 
@@ -26,5 +28,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/passwords', passwordRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/files', fileRoutes);
+app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/users', usersRoutes);
 
 module.exports = app;
