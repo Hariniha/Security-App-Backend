@@ -1,3 +1,5 @@
+// View (preview) file (for images)
+router.get('/view/:fileId', fileController.viewFile);
 const express = require('express');
 const router = express.Router();
 const fileController = require('../controllers/fileController');

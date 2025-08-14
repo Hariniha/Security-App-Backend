@@ -1,3 +1,17 @@
+// Stream file for image preview (no attachment)
+exports.viewFile = async (req, res) => {
+  try {
+    const { fileId } = req.params;
+    const file = await File.findById(fileId);
+    if (!file) return res.status(404).json({ error: 'File not found' });
+    const decryptedBuffer = await decryptFile(file.filePath, file.encryptionKey);
+    res.setHeader('Content-Type', file.mimeType);
+    res.send(decryptedBuffer);
+  } catch (error) {
+    console.error('View file error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
 const File = require('../models/File');
 const crypto = require('crypto');
 const fs = require('fs').promises;
