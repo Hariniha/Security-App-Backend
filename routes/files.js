@@ -3,10 +3,9 @@ const router = express.Router();
 const fileController = require('../controllers/fileController');
 const authMiddleware = require('../middleware/authMiddleware');
 
+
 // View (preview) file (for images)
 router.get('/view/:fileId', fileController.viewFile);
-const fileController = require('../controllers/fileController');
-const authMiddleware = require('../middleware/authMiddleware');
 
 // Apply auth middleware to all routes
 router.use(authMiddleware);
