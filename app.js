@@ -20,10 +20,7 @@ if (!fs.existsSync(uploadsDir)) {
 }
 
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'https://security-app-frontend.vercel.app'
-  ],
+  origin: true,
   credentials: true
 }));
 app.use(express.json());
