@@ -19,7 +19,13 @@ if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://security-app-frontend.vercel.app'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 app.use('/api/settings', settingsRoutes);
