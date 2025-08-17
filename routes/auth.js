@@ -125,17 +125,21 @@ router.post('/register', async (req, res) => {
 // Login
 router.post('/login', async (req, res) => {
   try {
+    console.log("here")
     const { email, password } = req.body;
-    
+    console.log('[Backend] Login attempt:', email);
+    const start = Date.now();
     // Find user by email
     const found = await User.findOne({ email });
     if (!found) {
+      console.log('[Backend] User not found:', email);
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
     // Compare password
     const isMatch = await bcrypt.compare(password, found.password);
     if (!isMatch) {
+      console.log('[Backend] Password mismatch for:', email);
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
@@ -154,12 +158,14 @@ router.post('/login', async (req, res) => {
       createdAt: found.createdAt
     };
 
+    const duration = Date.now() - start;
+    console.log(`[Backend] Login successful for ${email} in ${duration}ms`);
     res.json({
       user: userResponse,
       token
     });
   } catch (err) {
-    console.error('Login error:', err);
+    console.error('[Backend] Login error:', err);
     res.status(500).json({ error: 'Server error' });
   }
 });
